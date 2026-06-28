@@ -1,11 +1,12 @@
 # Cognitive Development Framework (CDF)
 
 > **Status: Experimental**
+> **Version: 1.1**
 > **Validation: 0 projects**
 >
-> CDF is published as an experimental GitHub Template. It is intentionally frozen at version 1.0 until it has been validated against real projects.
+> CDF is published as an experimental GitHub Template. It evolves only through documented evidence — see [`cdf-improvement-log.md`](./cdf-improvement-log.md) for the journal that drives every structural change.
 >
-> See [`cdf.manifest.yaml`](./cdf.manifest.yaml) for the declarative description and [`cdf-improvement-log.md`](./cdf-improvement-log.md) for the journal of issues encountered during use.
+> See [`cdf.manifest.yaml`](./cdf.manifest.yaml) for the declarative description of v1.1.
 
 ---
 
@@ -65,8 +66,21 @@ If the entire team — humans and AI — disappears, a new team (or a new AI) sh
 ```
 .
 ├── cdf.manifest.yaml         # Declarative description of this CDF installation
-├── cdf-improvement-log.md    # Journal of issues encountered during use
+├── cdf-improvement-log.md    # Journal of issues that drive every structural change
 ├── .cognition/               # The cognitive layer (project's brain)
+│   ├── identity/             # Who we are (knowledge)
+│   ├── memory/               # What we know, remember, decide (knowledge)
+│   │   └── permanent/reasoning/  # Saved chains of architectural thought (v1.1)
+│   ├── epistemology/         # How we know (knowledge, v1.1)
+│   ├── knowledge/            # Conceptual namespace — see README (v1.1)
+│   ├── processes/            # Conceptual namespace — see README (v1.1)
+│   ├── planner/              # Goals, iterations, slices (process)
+│   ├── architect/            # Design, domain model, ADRs (process)
+│   ├── developer/            # Implementation, tests (process)
+│   ├── reviewer/             # Reviews, technical debt (process)
+│   ├── curator/              # Knowledge maintenance (process)
+│   ├── researcher/           # Research, experiments (process)
+│   └── reflector/            # Reflection, patterns, lessons (process, v1.1)
 ├── .github/                  # GitHub templates (issues, PRs, discussions)
 ├── knowledge/                # Long-lived knowledge artifacts (ADRs, glossary, etc.)
 ├── architecture/             # Architectural artifacts (context, decisions, diagrams)
@@ -79,6 +93,22 @@ If the entire team — humans and AI — disappears, a new team (or a new AI) sh
 ```
 
 Every directory contains a `README.md` explaining **purpose, structure, lifecycle, expected content, and relationship with AI**.
+
+## What's New in v1.1
+
+CDF v1.1 is an **evolutionary** update to v1.0. The existing directory layout is preserved to avoid disrupting 396 cross-references. New additions are:
+
+* **`.cognition/epistemology/`** — six documents defining how the project knows: knowledge theory, evidence, truth, confidence, uncertainty, validation. *(Entry CDF-002.)*
+* **`.cognition/memory/permanent/reasoning/`** — saved chains of architectural thought, separate from the decisions they produce. *(Entry CDF-004.)*
+* **`.cognition/reflector/`** — reflection as a distinct role from curation, with a role prompt and four reflection artifacts. *(Entry CDF-007.)*
+* **`.cognition/knowledge/` and `.cognition/processes/`** — conceptual namespaces separating static knowledge from dynamic processes. Files remain in their v1.0 locations; physical migration is deferred until evidence demands it. *(Entry CDF-001.)*
+
+Three proposals were **deferred** rather than implemented:
+* `knowledge/models/` (CDF-003) — the architect role already owns models.
+* `processes/planner/capabilities/` (CDF-005) — slices remain the unit of development for now.
+* `actors/` (CDF-006) — actor/role distinction is documented as a convention, not a structure.
+
+See [`cdf-improvement-log.md`](./cdf-improvement-log.md) for the full journal including rejected proposals with their rationale.
 
 ## How CDF Evolves
 

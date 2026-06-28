@@ -19,11 +19,11 @@
 # The version of CDF this manifest declares. Independent of the repository's
 # git tag (which versions the code) and of any application version (which
 # versions a project built on top of CDF).
-cdf_version: 1
+cdf_version: "1.1"
 
 # The semantic version of this manifest file itself. Bumped when the
 # structure of *this file* changes, not when the project evolves.
-manifest_version: 1.0.0
+manifest_version: "1.1.0"
 
 # -----------------------------------------------------------------------------
 # Identity
@@ -34,7 +34,7 @@ project_type: "cognitive-development-framework"
 
 status: "experimental"
 # CDF is published as an experimental GitHub Template. It is intentionally
-# frozen at version 1.0 until it has been validated against real projects.
+# frozen except for changes justified by entries in cdf-improvement-log.md.
 # See cdf-improvement-log.md for the journal of issues encountered during use.
 
 maturity:
@@ -43,17 +43,22 @@ maturity:
   # is templated, no production validation yet. "stable" means: validated
   # on at least one real project with no structural issues found.
   layers:
-    identity:      "experimental"
-    planner:       "experimental"
-    architect:     "experimental"
-    developer:     "experimental"
-    reviewer:      "experimental"
-    curator:       "experimental"
-    researcher:    "experimental"
-    memory:        "experimental"
-    workflows:     "experimental"
-    prompts:       "experimental"
-    knowledge:     "experimental"
+    identity:               "experimental"
+    planner:                "experimental"
+    architect:              "experimental"
+    developer:              "experimental"
+    reviewer:               "experimental"
+    curator:                "experimental"
+    researcher:             "experimental"
+    reflector:              "experimental"   # NEW in v1.1
+    memory:                 "experimental"
+    memory/reasoning:       "experimental"   # NEW in v1.1
+    epistemology:           "experimental"   # NEW in v1.1
+    workflows:              "experimental"
+    prompts:                "experimental"
+    knowledge:              "experimental"   # NEW in v1.1 — conceptual namespace only
+    processes:              "experimental"   # NEW in v1.1 — conceptual namespace only
+    knowledge_legacy:       "experimental"   # v1.0 directory layout, retained
 
 # -----------------------------------------------------------------------------
 # Philosophy
@@ -62,16 +67,48 @@ maturity:
 # configurable. If a future change conflicts with any of these, that change
 # must either be rejected or proposed as a fundamental re-architecture.
 philosophy:
-  architecture_first:        true   # Design before code.
-  knowledge_first:           true   # Capture knowledge before, during, after code.
-  explicit_reasoning:        true   # Decisions require stated rationale.
+  architecture_first:           true   # Design before code.
+  knowledge_first:              true   # Capture knowledge before, during, after code.
+  explicit_reasoning:           true   # Decisions require stated rationale.
   deterministic_transformations: true  # Same inputs produce same outputs.
-  language_independent:      true   # No stack-specific assumptions.
-  ai_friendly:               true   # Optimized for LLM consumption.
-  human_friendly:            true   # Optimized for human comprehension.
-  long_term_maintainable:    true   # Designed for 10+ year projects.
-  knowledge_is_first_class:  true   # Treated with same rigor as source code.
-  explicit_over_implicit:    true   # Bias toward documented, traceable structures.
+  language_independent:         true   # No stack-specific assumptions.
+  ai_friendly:                  true   # Optimized for LLM consumption.
+  human_friendly:               true   # Optimized for human comprehension.
+  long_term_maintainable:       true   # Designed for 10+ year projects.
+  knowledge_is_first_class:     true   # Treated with same rigor as source code.
+  explicit_over_implicit:       true   # Bias toward documented, traceable structures.
+  evolutionary_not_speculative: true   # Structure changes only after evidence.
+
+# -----------------------------------------------------------------------------
+# Knowledge / Processes Distinction
+# -----------------------------------------------------------------------------
+# Conceptual namespaces introduced in v1.1 in response to CDF-001.
+# These are NOT physical migrations — existing directories retain their
+# v1.0 layout. The namespaces exist as documentation (README files).
+knowledge_processes_split:
+  status: "conceptual"   # NOT yet physical
+  rationale: "cdf-improvement-log.md entry CDF-001"
+  knowledge_namespace:
+    path: ".cognition/knowledge/"
+    contains_now: "README only — concept documentation"
+    contains_logically:
+      - ".cognition/identity/"
+      - ".cognition/memory/"
+      - ".cognition/epistemology/"
+      - ".cognition/guides/"
+  processes_namespace:
+    path: ".cognition/processes/"
+    contains_now: "README only — concept documentation"
+    contains_logically:
+      - ".cognition/planner/"
+      - ".cognition/architect/"
+      - ".cognition/developer/"
+      - ".cognition/reviewer/"
+      - ".cognition/curator/"
+      - ".cognition/researcher/"
+      - ".cognition/reflector/"
+  physical_migration:
+    deferred_until: "evidence from a real project demonstrates that the conceptual separation is insufficient"
 
 # -----------------------------------------------------------------------------
 # Knowledge Model
@@ -82,6 +119,7 @@ knowledge_model:
   graph:     "jsonld"      # Optional semantic layer: JSON-LD-ready concepts.
   memory:    "markdown"    # Memory entries are Markdown with stable frontmatter.
   contracts: "json-schema" # Artifacts between roles use JSON Schema.
+  epistemology: "markdown" # Epistemics are Markdown (new in v1.1).
 
 # -----------------------------------------------------------------------------
 # Process Model
@@ -90,15 +128,14 @@ knowledge_model:
 # and a workflow under workflows/. Disabled processes may be ignored by AI
 # assistants loading this manifest.
 process_model:
-  planner:    { enabled: true,  path: ".cognition/planner/" }
-  architect:  { enabled: true,  path: ".cognition/architect/" }
-  developer:  { enabled: true,  path: ".cognition/developer/" }
-  reviewer:   { enabled: true,  path: ".cognition/reviewer/" }
-  curator:    { enabled: true,  path: ".cognition/curator/" }
-  researcher: { enabled: true,  path: ".cognition/researcher/" }
-  reflector:  { enabled: false, path: null, note: "Reserved for v2." }
-  reasoner:   { enabled: false, path: null, note: "Reserved for v2." }
-  executor:   { enabled: false, path: null, note: "Reserved for v2." }
+  planner:    { enabled: true,  path: ".cognition/planner/",    namespace: "processes" }
+  architect:  { enabled: true,  path: ".cognition/architect/",  namespace: "processes" }
+  developer:  { enabled: true,  path: ".cognition/developer/",  namespace: "processes" }
+  reviewer:   { enabled: true,  path: ".cognition/reviewer/",   namespace: "processes" }
+  curator:    { enabled: true,  path: ".cognition/curator/",    namespace: "processes" }
+  researcher: { enabled: true,  path: ".cognition/researcher/", namespace: "processes" }
+  reflector:  { enabled: true,  path: ".cognition/reflector/",  namespace: "processes", note: "New in v1.1 — added per CDF-007." }
+  epistemics: { enabled: true,  path: ".cognition/epistemology/", namespace: "knowledge", note: "New in v1.1 — added per CDF-002." }
 
 # -----------------------------------------------------------------------------
 # Artifacts
@@ -124,6 +161,12 @@ artifacts:
     template: "knowledge/technical-debt/0000-template.md"
   - name: "decision-proposal"
     template: "knowledge/decision-proposals/0000-template.md"
+  - name: "reasoning-chain"        # NEW in v1.1
+    template: ".cognition/memory/permanent/reasoning/README.md"
+    note: "Saved chains of architectural reasoning. See CDF-004."
+  - name: "reflection-entry"       # NEW in v1.1
+    template: ".cognition/reflector/README.md"
+    note: "Patterns, slowdowns, surprises, wrong assumptions. See CDF-007."
 
 # -----------------------------------------------------------------------------
 # Roles
@@ -136,26 +179,38 @@ roles:
     enabled: true
     prompt: "prompts/roles/planner.md"
     description: "Owns the what and when: goals, iterations, backlog, slices."
+    namespace: "processes"
   architect:
     enabled: true
     prompt: "prompts/roles/architect.md"
     description: "Owns structure: domain model, system context, ADRs."
+    namespace: "processes"
   developer:
     enabled: true
     prompt: "prompts/roles/developer.md"
     description: "Owns the how: implementation, tests, current task."
+    namespace: "processes"
   reviewer:
     enabled: true
     prompt: "prompts/roles/reviewer.md"
     description: "Owns integrity: review reports, technical debt ledger."
+    namespace: "processes"
   curator:
     enabled: true
     prompt: "prompts/roles/curator.md"
     description: "Owns the cognitive layer: glossary, knowledge updates, lessons."
+    namespace: "processes"
   researcher:
     enabled: true
     prompt: "prompts/roles/researcher.md"
     description: "Owns unknowns: research notes, experiments, dead ends."
+    namespace: "processes"
+  reflector:
+    enabled: true
+    prompt: ".cognition/reflector/reflector_prompt.md"  # NEW in v1.1
+    description: "Owns reflection: patterns, wrong assumptions, what should change."
+    namespace: "processes"
+    note: "Added in v1.1 per CDF-007."
 
 # -----------------------------------------------------------------------------
 # Validation
@@ -170,19 +225,41 @@ validation:
   #     encountering structural issues that required redesign.
 
   projects_validated: 0
-  # List of projects that have validated CDF in practice. Each entry has:
-  #   - name: project name (string)
-  #   - domain: project domain (string)
-  #   - duration: how long the project used CDF (string, e.g. "3 months")
-  #   - outcome: "validated" | "validated-with-issues" | "abandoned"
-  #   - notes: free text summary of the experience
-  #   - log: path to the project's CDF improvement log
+  # List of projects that have validated CDF in practice.
   projects: []
 
-  # Issues encountered that affected the structural design of CDF. Each
-  # entry is logged in detail in cdf-improvement-log.md.
-  # The format here is a brief index; the full text lives in the log.
-  structural_issues_encountered: 0
+  # v1.1 features are experimental until a real project uses them.
+  experimental_features:
+    - "epistemology/ — six documents on how the project knows"
+    - "memory/reasoning/ — saved chains of architectural thought"
+    - "reflector/ — reflection as a distinct process from curation"
+    - "knowledge/ and processes/ — conceptual namespaces (not yet physical)"
+
+  # Issues encountered that affected the structural design of CDF.
+  # Indexed from cdf-improvement-log.md.
+  structural_issues_encountered: 7
+  log_entries:
+    - id: "CDF-001"
+      status: "accepted"
+      change: "knowledge/processes conceptual split introduced"
+    - id: "CDF-002"
+      status: "accepted"
+      change: "epistemology/ layer added"
+    - id: "CDF-003"
+      status: "deferred"
+      change: "models/ top-level — no change (architect role owns models)"
+    - id: "CDF-004"
+      status: "accepted"
+      change: "memory/reasoning/ added"
+    - id: "CDF-005"
+      status: "deferred"
+      change: "capabilities/ top-level — no change (slices remain unit of development)"
+    - id: "CDF-006"
+      status: "deferred"
+      change: "actors/ top-level — convention in processes/README.md only"
+    - id: "CDF-007"
+      status: "accepted"
+      change: "reflector/ role added"
 
 # -----------------------------------------------------------------------------
 # Roadmap
@@ -191,16 +268,28 @@ validation:
 # is validation. Additional structure appears only after validation surfaces
 # a real problem that requires it.
 roadmap:
-  next_milestone: "Validate on a real project."
+  next_milestone: "Use CDF v1.1 on a real project (Zhamlik)."
   milestone_status: "not-started"
 
   # Candidate future milestones. Each must reference a real issue from
   # cdf-improvement-log.md before it can be promoted to active work.
   candidates:
-    - id: "v2-add-reflection"
-      blocked_on: "Issue: a real project finds that closing the cognitive cycle is needed."
-    - id: "v2-add-execution-trace"
-      blocked_on: "Issue: a real project finds that action history is unclear."
+    - id: "v1.2-physical-migration"
+      description: "Physically migrate existing directories into knowledge/ and processes/."
+      blocked_on: "Real project demonstrates that the conceptual separation is insufficient."
+      references: "cdf-improvement-log.md entry CDF-001"
+    - id: "v1.2-models-namespace"
+      description: "Add a top-level knowledge/models/ if Zhamlik shows models that are NOT architect-owned."
+      blocked_on: "Real project surfaces this need."
+      references: "cdf-improvement-log.md entry CDF-003"
+    - id: "v1.2-capabilities-namespace"
+      description: "Add processes/planner/capabilities/ if Zhamlik shows slices need state and maturity tracking across iterations."
+      blocked_on: "Real project demonstrates repeated slices with shared state."
+      references: "cdf-improvement-log.md entry CDF-005"
+    - id: "v2-actors-runtime"
+      description: "Add an actors/ layer if CDF becomes a runtime (AI_OS integration)."
+      blocked_on: "AI_OS-like runtime becomes part of CDF."
+      references: "cdf-improvement-log.md entry CDF-006"
 
   # Anti-roadmap: things explicitly not planned. These are recorded so that
   # future contributors do not propose them based on aesthetic appeal alone.
@@ -209,6 +298,8 @@ roadmap:
     - "Graph databases, RDF parsers, or ontology tools as required runtime deps."
     - "Async execution engines inside CDF itself."
     - "Semantic-versioning of any application's data based on this manifest."
+    - "Renaming existing stable paths purely for aesthetic reasons."
+    - "Coupling architectural decisions with repository migrations."
 
 # -----------------------------------------------------------------------------
 # Invariants
@@ -221,6 +312,8 @@ invariants:
   - "Permanent memory is amended only via the curator process."
   - "Working memory is replaced, not accumulated."
   - "Every artifact template is paired with a stable filename convention."
+  - "Every structural change to CDF must reference a cdf-improvement-log.md entry."
+  - "Conceptual namespace changes must not be coupled with physical migrations unless justified by evidence."
 
 # -----------------------------------------------------------------------------
 # Provenance
@@ -230,7 +323,18 @@ provenance:
   - version: "1.0.0"
     date: "2026-06-28"
     author: "Initial CDF bootstrap"
-    note: "First manifest. Captures CDF v1 structure (155 files, templated, experimental)."
+    note: "First manifest. Captures CDF v1.0 structure (157 files, templated, experimental)."
+
+  - version: "1.1.0"
+    date: "2026-06-28"
+    author: "Evolutionary update"
+    note: |
+      CDF v1.1 — adds epistemology/, memory/reasoning/, reflector/,
+      and conceptual knowledge/processes namespaces. All changes
+      justified by entries in cdf-improvement-log.md (CDF-001,
+      CDF-002, CDF-004, CDF-007). Physical migration deferred.
+      Existing directory layout preserved to minimize blast radius
+      (396 cross-references unaffected).
 
 # -----------------------------------------------------------------------------
 # Loading Hints
@@ -245,6 +349,8 @@ loading_hints:
     - ".cognition/memory/permanent/glossary.md"
     - ".cognition/memory/permanent/invariants.md"
     - ".cognition/identity/README.md"
+    - ".cognition/knowledge/README.md"          # NEW in v1.1
+    - ".cognition/processes/README.md"          # NEW in v1.1
   read_when_starting_session:
     - ".cognition/memory/working/current_context.md"
     - ".cognition/memory/sessions/session_log.md"
@@ -252,3 +358,9 @@ loading_hints:
     - ".cognition/identity/principles.md"
     - ".cognition/identity/constraints.md"
     - "knowledge/architecture-decisions/"
+    - ".cognition/epistemology/truth_criteria.md"  # NEW in v1.1
+  read_when_acting_under_uncertainty:           # NEW in v1.1
+    - ".cognition/epistemology/uncertainty_handling.md"
+    - ".cognition/epistemology/confidence_framework.md"
+  read_when_reflecting:                         # NEW in v1.1
+    - ".cognition/reflector/reflector_prompt.md"
