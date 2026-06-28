@@ -58,7 +58,13 @@ Severity: `low` (cosmetic) | `medium` (friction) | `high` (blocks progress) | `c
 * **Workaround:** Attempted informal separation via roles (`.cognition/planner/`, etc.) but the mental model kept collapsing because roles are not processes.
 * **Suggested change:** Introduce two top-level groupings under `.cognition/`: `knowledge/` (static) and `processes/` (dynamic).
 * **Status:** accepted
-* **Resolution:** Implemented as `.cognition/knowledge/` and `.cognition/processes/`. Existing role directories (planner, architect, developer, reviewer, curator, researcher) migrated to `processes/`; static artifacts (identity, memory, ontology-like) migrated to `knowledge/`.
+* **Resolution:** Conceptual separation accepted and documented via `.cognition/knowledge/README.md` and `.cognition/processes/README.md`. Existing directories retain their v1.0 physical layout.
+* **Physical migration — decision:** The decision to physically migrate is **already made**. Only its implementation is deferred.
+* **Physical migration — triggers:** Implementation will fire when ANY of the following is observed in a real CDF project:
+  1. Repeated navigation problems — contributors cannot find knowledge vs. process content without consulting both namespace READMEs.
+  2. Tooling requirement — a validator, linter, or generator operates on `knowledge/` and `processes/` as physical units.
+  3. Maintenance cost exceeds migration cost — new contributors regularly misplace files and review cannot catch it.
+* **Until any trigger fires:** Conceptual namespaces remain the only representation of the distinction.
 
 ### 2026-06-28 — Project has no explicit epistemic layer
 

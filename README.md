@@ -101,7 +101,7 @@ CDF v1.1 is an **evolutionary** update to v1.0. The existing directory layout is
 * **`.cognition/epistemology/`** — six documents defining how the project knows: knowledge theory, evidence, truth, confidence, uncertainty, validation. *(Entry CDF-002.)*
 * **`.cognition/memory/permanent/reasoning/`** — saved chains of architectural thought, separate from the decisions they produce. *(Entry CDF-004.)*
 * **`.cognition/reflector/`** — reflection as a distinct role from curation, with a role prompt and four reflection artifacts. *(Entry CDF-007.)*
-* **`.cognition/knowledge/` and `.cognition/processes/`** — conceptual namespaces separating static knowledge from dynamic processes. Files remain in their v1.0 locations; physical migration is deferred until evidence demands it. *(Entry CDF-001.)*
+* **`.cognition/knowledge/` and `.cognition/processes/`** — conceptual namespaces separating static knowledge from dynamic processes. Files remain in their v1.0 locations. The decision to physically migrate is already made; implementation is deferred until one of three triggers fires (see `cdf-improvement-log.md` entry CDF-001): repeated navigation friction, tooling requirement, or maintenance cost exceeding migration cost. *(Log entry CDF-001.)*
 
 Three proposals were **deferred** rather than implemented:
 * `knowledge/models/` (CDF-003) — the architect role already owns models.

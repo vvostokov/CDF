@@ -108,7 +108,17 @@ knowledge_processes_split:
       - ".cognition/researcher/"
       - ".cognition/reflector/"
   physical_migration:
-    deferred_until: "evidence from a real project demonstrates that the conceptual separation is insufficient"
+    status: "deferred-by-decision"
+    rationale: |
+      The conceptual separation has already been accepted (CDF-001).
+      Physical migration of existing directories is intentionally
+      deferred. The decision is final; only its implementation is
+      pending. Implementation will be triggered by ANY of:
+    triggers:
+      - "Repeated navigation problems are observed in real projects (e.g. contributors cannot find knowledge vs. process content without reading both namespace READMEs)."
+      - "Tooling is built that requires the physical hierarchy (e.g. a static site generator, a linter, or a validator that operates on knowledge/ and processes/ as units)."
+      - "The maintenance cost of the legacy layout exceeds the migration cost (e.g. new contributors regularly add files to the wrong conceptual area, and this can no longer be caught in review)."
+    until_any_trigger_fires: "Conceptual namespaces remain the only representation of the knowledge/processes distinction."
 
 # -----------------------------------------------------------------------------
 # Knowledge Model
