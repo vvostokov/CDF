@@ -1,0 +1,9 @@
+# Blank issue: enabled so anyone can open an unstructured issue if no template fits.
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/your-org/cognitive-development-framework/discussions
+    about: Use Discussions for open-ended questions, ideas, and architectural conversations.
+  - name: 🔒 Private security report
+    url: https://github.com/your-org/cognitive-development-framework/security/advisories/new
+    about: Report security issues privately instead of opening a public issue.

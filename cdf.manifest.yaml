@@ -1,0 +1,254 @@
+# CDF Manifest
+#
+# This file is the declarative description of this repository's cognitive
+# architecture. It is NOT a runtime configuration.
+#
+# Analogy: package.json for Node.js, Cargo.toml for Rust, pyproject.toml
+# for Python — but at the level of cognitive architecture.
+#
+# This file may be consumed by:
+#   - AI assistants (Hermes, Claude, ChatGPT, OpenCode, local LLMs) to load
+#     a high-level map of the cognitive layer before reading its files.
+#   - Future tooling (validators, context generators, OS-level orchestrators)
+#     to detect drift between this manifest and the actual structure.
+#   - Humans, as a single-page summary of what CDF currently is.
+
+# -----------------------------------------------------------------------------
+# Versioning
+# -----------------------------------------------------------------------------
+# The version of CDF this manifest declares. Independent of the repository's
+# git tag (which versions the code) and of any application version (which
+# versions a project built on top of CDF).
+cdf_version: 1
+
+# The semantic version of this manifest file itself. Bumped when the
+# structure of *this file* changes, not when the project evolves.
+manifest_version: 1.0.0
+
+# -----------------------------------------------------------------------------
+# Identity
+# -----------------------------------------------------------------------------
+name: "Cognitive Development Framework"
+short_name: "CDF"
+project_type: "cognitive-development-framework"
+
+status: "experimental"
+# CDF is published as an experimental GitHub Template. It is intentionally
+# frozen at version 1.0 until it has been validated against real projects.
+# See cdf-improvement-log.md for the journal of issues encountered during use.
+
+maturity:
+  overall: "experimental"
+  # Layer-level maturity. "experimental" means: structure exists, content
+  # is templated, no production validation yet. "stable" means: validated
+  # on at least one real project with no structural issues found.
+  layers:
+    identity:      "experimental"
+    planner:       "experimental"
+    architect:     "experimental"
+    developer:     "experimental"
+    reviewer:      "experimental"
+    curator:       "experimental"
+    researcher:    "experimental"
+    memory:        "experimental"
+    workflows:     "experimental"
+    prompts:       "experimental"
+    knowledge:     "experimental"
+
+# -----------------------------------------------------------------------------
+# Philosophy
+# -----------------------------------------------------------------------------
+# The non-negotiable philosophical commitments of CDF. These are not
+# configurable. If a future change conflicts with any of these, that change
+# must either be rejected or proposed as a fundamental re-architecture.
+philosophy:
+  architecture_first:        true   # Design before code.
+  knowledge_first:           true   # Capture knowledge before, during, after code.
+  explicit_reasoning:        true   # Decisions require stated rationale.
+  deterministic_transformations: true  # Same inputs produce same outputs.
+  language_independent:      true   # No stack-specific assumptions.
+  ai_friendly:               true   # Optimized for LLM consumption.
+  human_friendly:            true   # Optimized for human comprehension.
+  long_term_maintainable:    true   # Designed for 10+ year projects.
+  knowledge_is_first_class:  true   # Treated with same rigor as source code.
+  explicit_over_implicit:    true   # Bias toward documented, traceable structures.
+
+# -----------------------------------------------------------------------------
+# Knowledge Model
+# -----------------------------------------------------------------------------
+# The shape of CDF's knowledge layer.
+knowledge_model:
+  ontology:  "markdown"    # Primary representation: human-readable Markdown.
+  graph:     "jsonld"      # Optional semantic layer: JSON-LD-ready concepts.
+  memory:    "markdown"    # Memory entries are Markdown with stable frontmatter.
+  contracts: "json-schema" # Artifacts between roles use JSON Schema.
+
+# -----------------------------------------------------------------------------
+# Process Model
+# -----------------------------------------------------------------------------
+# The processes CDF supports. Each entry maps to a directory under .cognition/
+# and a workflow under workflows/. Disabled processes may be ignored by AI
+# assistants loading this manifest.
+process_model:
+  planner:    { enabled: true,  path: ".cognition/planner/" }
+  architect:  { enabled: true,  path: ".cognition/architect/" }
+  developer:  { enabled: true,  path: ".cognition/developer/" }
+  reviewer:   { enabled: true,  path: ".cognition/reviewer/" }
+  curator:    { enabled: true,  path: ".cognition/curator/" }
+  researcher: { enabled: true,  path: ".cognition/researcher/" }
+  reflector:  { enabled: false, path: null, note: "Reserved for v2." }
+  reasoner:   { enabled: false, path: null, note: "Reserved for v2." }
+  executor:   { enabled: false, path: null, note: "Reserved for v2." }
+
+# -----------------------------------------------------------------------------
+# Artifacts
+# -----------------------------------------------------------------------------
+# The named artifact types that flow between roles. Each artifact has a
+# template under knowledge/ and may have a JSON Schema under knowledge/.
+artifacts:
+  - name: "architecture-decision-record"
+    template: "knowledge/architecture-decisions/0000-template.md"
+  - name: "feature-specification"
+    template: "knowledge/features/0000-template.md"
+  - name: "bounded-context"
+    template: "knowledge/domain/bounded-contexts/0000-template.md"
+  - name: "business-rule"
+    template: "knowledge/business-rules/0000-template.md"
+  - name: "risk-analysis"
+    template: "knowledge/risks/0000-template.md"
+  - name: "retrospective"
+    template: "knowledge/retrospectives/0000-template.md"
+  - name: "review-report"
+    template: "knowledge/reviews/0000-template.md"
+  - name: "technical-debt"
+    template: "knowledge/technical-debt/0000-template.md"
+  - name: "decision-proposal"
+    template: "knowledge/decision-proposals/0000-template.md"
+
+# -----------------------------------------------------------------------------
+# Roles
+# -----------------------------------------------------------------------------
+# CDF is role-agnostic with respect to the actor. Any role below may be
+# filled by a human, an LLM-assisted workflow, or an automation script.
+# The actor does not change the role's responsibilities.
+roles:
+  planner:
+    enabled: true
+    prompt: "prompts/roles/planner.md"
+    description: "Owns the what and when: goals, iterations, backlog, slices."
+  architect:
+    enabled: true
+    prompt: "prompts/roles/architect.md"
+    description: "Owns structure: domain model, system context, ADRs."
+  developer:
+    enabled: true
+    prompt: "prompts/roles/developer.md"
+    description: "Owns the how: implementation, tests, current task."
+  reviewer:
+    enabled: true
+    prompt: "prompts/roles/reviewer.md"
+    description: "Owns integrity: review reports, technical debt ledger."
+  curator:
+    enabled: true
+    prompt: "prompts/roles/curator.md"
+    description: "Owns the cognitive layer: glossary, knowledge updates, lessons."
+  researcher:
+    enabled: true
+    prompt: "prompts/roles/researcher.md"
+    description: "Owns unknowns: research notes, experiments, dead ends."
+
+# -----------------------------------------------------------------------------
+# Validation
+# -----------------------------------------------------------------------------
+# The empirical state of CDF. This is the section that grows over time.
+validation:
+  status: "unvalidated"
+  # Possible values:
+  #   - unvalidated: no real project has used CDF yet.
+  #   - validating: one or more projects are using CDF in practice.
+  #   - validated: at least one project has shipped using CDF without
+  #     encountering structural issues that required redesign.
+
+  projects_validated: 0
+  # List of projects that have validated CDF in practice. Each entry has:
+  #   - name: project name (string)
+  #   - domain: project domain (string)
+  #   - duration: how long the project used CDF (string, e.g. "3 months")
+  #   - outcome: "validated" | "validated-with-issues" | "abandoned"
+  #   - notes: free text summary of the experience
+  #   - log: path to the project's CDF improvement log
+  projects: []
+
+  # Issues encountered that affected the structural design of CDF. Each
+  # entry is logged in detail in cdf-improvement-log.md.
+  # The format here is a brief index; the full text lives in the log.
+  structural_issues_encountered: 0
+
+# -----------------------------------------------------------------------------
+# Roadmap
+# -----------------------------------------------------------------------------
+# What is next. CDF's roadmap is deliberately minimal: the only milestone
+# is validation. Additional structure appears only after validation surfaces
+# a real problem that requires it.
+roadmap:
+  next_milestone: "Validate on a real project."
+  milestone_status: "not-started"
+
+  # Candidate future milestones. Each must reference a real issue from
+  # cdf-improvement-log.md before it can be promoted to active work.
+  candidates:
+    - id: "v2-add-reflection"
+      blocked_on: "Issue: a real project finds that closing the cognitive cycle is needed."
+    - id: "v2-add-execution-trace"
+      blocked_on: "Issue: a real project finds that action history is unclear."
+
+  # Anti-roadmap: things explicitly not planned. These are recorded so that
+  # future contributors do not propose them based on aesthetic appeal alone.
+  anti_roadmap:
+    - "Speculative architectural layers without a triggering real-world issue."
+    - "Graph databases, RDF parsers, or ontology tools as required runtime deps."
+    - "Async execution engines inside CDF itself."
+    - "Semantic-versioning of any application's data based on this manifest."
+
+# -----------------------------------------------------------------------------
+# Invariants
+# -----------------------------------------------------------------------------
+# Properties of CDF that must always hold. Violations are bugs.
+invariants:
+  - "No file in .cognition/ may be language-specific."
+  - "No prompt may depend on chat history."
+  - "Identity documents are immutable except through an ADR-style ceremony."
+  - "Permanent memory is amended only via the curator process."
+  - "Working memory is replaced, not accumulated."
+  - "Every artifact template is paired with a stable filename convention."
+
+# -----------------------------------------------------------------------------
+# Provenance
+# -----------------------------------------------------------------------------
+# The history of how this manifest came to be. Entries are append-only.
+provenance:
+  - version: "1.0.0"
+    date: "2026-06-28"
+    author: "Initial CDF bootstrap"
+    note: "First manifest. Captures CDF v1 structure (155 files, templated, experimental)."
+
+# -----------------------------------------------------------------------------
+# Loading Hints
+# -----------------------------------------------------------------------------
+# Recommendations for AI assistants loading this manifest. These are hints,
+# not requirements — the assistant should always verify by reading the
+# referenced files.
+loading_hints:
+  always_read:
+    - ".cognition/identity/principles.md"
+    - ".cognition/identity/constraints.md"
+    - ".cognition/memory/permanent/glossary.md"
+    - ".cognition/memory/permanent/invariants.md"
+    - ".cognition/identity/README.md"
+  read_when_starting_session:
+    - ".cognition/memory/working/current_context.md"
+    - ".cognition/memory/sessions/session_log.md"
+  read_when_making_decision:
+    - ".cognition/identity/principles.md"
+    - ".cognition/identity/constraints.md"
+    - "knowledge/architecture-decisions/"

@@ -1,0 +1,87 @@
+# --- Operating system ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+ehthumbs_view.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Editors / IDEs ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*~
+.project
+.classpath
+.settings/
+*.iml
+
+# --- Secrets and credentials ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+secrets/
+credentials/
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Build artifacts ---
+build/
+dist/
+out/
+target/
+bin/
+obj/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# --- Dependency directories ---
+node_modules/
+vendor/
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# --- Coverage / test output ---
+coverage/
+*.cover
+*.coverprofile
+.nyc_output/
+junit.xml
+
+# --- Temporary / scratch ---
+tmp/
+temp/
+.cache/
+.tmp/
+
+# --- OS / tooling noise ---
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+$Vagrantfile$
+
+# --- CDF-specific ---
+# Working memory is intentionally not ignored: it should be committed
+# so AI agents can pick up the project context.
+# Permanent memory is committed.
+# If a project wants to keep some working notes local, add them here.
